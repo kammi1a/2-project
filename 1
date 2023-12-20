@@ -2,11 +2,14 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
+
 void clearScreen()
 {
-    cin.clear();
+    system("clear");
 }
-bool isValidPlacement(int arr[][7], int x, int y, int size, int orientation, int n)
+
+
+bool isValidPlace(int arr[7][7], int x, int y, int size, int orientation, int n)
 {
     if ((orientation==0 && y+size-1>=n) || (orientation==1 && x+size-1>=n))
         return false;
@@ -20,17 +23,9 @@ bool isValidPlacement(int arr[][7], int x, int y, int size, int orientation, int
     }
     return true;
 }
-void arrEmpty(int arr[][7], int n)
-{
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
-            arr[i][j] = 0;
-        }
-    }
-}
-bool isShipSunk(int arr[][7], int playerView[][7], int X, int Y, int n)
+
+
+bool isShipSunk(int arr[7][7], int playerView[][7], int X, int Y, int n)
 {
     int shipType = arr[X][Y];
     int hit = 0;
@@ -73,7 +68,7 @@ int main()
         x = rand() % (n-2);
         y = rand() % n;
         int orientation = rand() % 2;
-        while (!isValidPlacement(arr, x, y, 3, orientation, n))
+        while (!isValidPlace(arr, x, y, 3, orientation, n))
         {
             x = rand() % (n-2);
             y = rand() % n;
@@ -91,13 +86,13 @@ int main()
             arr[x+1][y] = tripleMasted;
             arr[x+2][y] = tripleMasted;
         }
-    } //tripleMasted is placed
+    } //3
     for (int i = 0; i < 2; i++)
     {
         x = rand() % (n-1);
         y = rand() % n;
         int orientation = rand() % 2;
-        while (!isValidPlacement(arr, x, y, 2, orientation, n))
+        while (!isValidPlace(arr, x, y, 2, orientation, n))
         {
             x = rand() % (n-1);
             y = rand() % n;
@@ -113,18 +108,18 @@ int main()
             arr[x][y] = doubleMasted;
             arr[x+1][y] = doubleMasted;
         }
-    } //two doubleMasted is placed
+    } //2
     for (int i = 0; i < 4; i++)
     {
         x = rand() % n;
         y = rand() % n;
-        while (!isValidPlacement(arr, x, y, 1, 0, n))
+        while (!isValidPlace(arr, x, y, 1, 0, n))
         {
             x = rand() % n;
             y = rand() % n;
         }
         arr[x][y]=singleMasted;
-    } //four singleMasted is placed
+    } //4
     while (game != 11)
     {
         cout << "  ";
@@ -140,15 +135,15 @@ int main()
             {
                 if (playerView[i][j] == 0)
                 {
-                    cout << ". "; // Empty
+                    cout << ". "; 
                 }
                 else if (playerView[i][j] == -1)
                 {
-                    cout << "* "; // Missed
+                    cout << "* "; 
                 }
                 else
                 {
-                    cout << "X "; // Ship (hit or sunk) 
+                    cout << "X "; 
                 }
             }
             cout << endl;
@@ -197,15 +192,15 @@ int main()
             {
                 if (playerView[i][j] == 0)
                 {
-                    cout << ". "; // Empty
+                    cout << ". "; 
                 }
                 else if (playerView[i][j] == -1)
                 {
-                    cout << ". "; // Missed
+                    cout << ". ";
                 }
                 else
                 {
-                    cout << "X "; // Ship (hit or sunk) 
+                    cout << "X "; 
                 }
             }
             cout << endl;
